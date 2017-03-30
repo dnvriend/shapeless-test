@@ -44,10 +44,6 @@ object GenericDerivationTest {
     }
   }
 
-  implicit val hnilEncoder: CsvEncoder[HNil] = CsvEncoder.instance[HNil](_ => Nil)
-  implicit val strEncoder: CsvEncoder[String] = CsvEncoder.instance[String](str => List(str))
-  implicit val intEncoder: CsvEncoder[Int] = CsvEncoder.instance[Int](x => List(x.toString))
-
   // like with the SimpleDerivationTest, where we derive a type class instance
   // for CsvEncoder[(A, B)] so a pair of (A, B), we will do the same but not
   // for the 'pair' type, but for a HList type. As you know, the HList type can
@@ -89,6 +85,19 @@ object GenericDerivationTest {
       case h :: t => encH.encode(h) ++ encT.encode(t)
     }
   }
+
+  // the type class instances the compiler cannot derive
+  // so one for CsvEncoder[HNil], CsvEncoder[String] and CsvEncoder[Int]
+  implicit val hnilEncoder: CsvEncoder[HNil] = CsvEncoder.instance[HNil](_ => Nil)
+  implicit val strEncoder: CsvEncoder[String] = CsvEncoder.instance[String](str => List(str))
+  implicit val intEncoder: CsvEncoder[Int] = CsvEncoder.instance[Int](x => List(x.toString))
+
+  // you would be right if you are thinking, when we have a Repr that contains a Boolean for example
+  // or a java.util.Date, we need CsvEncoders for them as well...
+  // but lets start simple and focus on just the following three atomic types
+  // - the 'HNil' that represents the end of the HList,
+  // - the String,
+  // - the Int
 }
 
 class GenericDerivationTest extends TestSpec {
