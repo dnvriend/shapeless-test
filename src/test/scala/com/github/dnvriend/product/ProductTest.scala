@@ -94,11 +94,14 @@ class ProductTest extends TestSpec {
   }
 
   it should "" in {
-    val repr1 = "str" :: 1 :: false :: HNil
-    val repr2 = 1 :: "str" :: false :: HNil
-    val repr3 = false :: 1 :: "str" :: HNil
+    //    val repr1 = "str" :: 1 :: false :: HNil
+    //    val repr2 = 1 :: "str" :: false :: HNil
+    //    val repr3 = false :: 1 :: "str" :: HNil
+    //
+    //    val xx = Generic[IceCream]
+    //    println(xx)
 
-    val xx = Generic[IceCream].to(IceCream.Sundae)
+    //    val xx = Generic[IceCream].to(IceCream.Sundae)
     //    xx.fold(HNil)()
   }
 }
