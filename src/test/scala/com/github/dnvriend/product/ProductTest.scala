@@ -18,6 +18,12 @@ package com.github.dnvriend.product
 
 import com.github.dnvriend.TestSpec
 import shapeless._
+import shapeless._
+import nat._
+import ops.nat._
+import test._
+import LT._
+import LTEq._
 
 case class IceCream(name: String, numCherries: Int, inCone: Boolean)
 object IceCream {
@@ -76,6 +82,7 @@ class ProductTest extends TestSpec {
     // having an appropriate generic typeclass in scope for a certain ADT, you can
     // transform to/from the HList representation
 
+    //    Generic.Aux[A, R]
     Generic[IceCream].from(mostGeneric) shouldBe IceCream("Foo", 1234, true)
     Generic[Employee].from(mostGeneric) shouldBe Employee("Foo", 1234, true)
     tupleGen.from(mostGeneric) shouldBe ("Foo", 1234, true)
@@ -85,4 +92,14 @@ class ProductTest extends TestSpec {
     val repr = Generic[Person].to(Person.DefaultPerson)
     Generic[Person].from(repr) shouldBe Person.DefaultPerson
   }
+
+  it should "" in {
+    val repr1 = "str" :: 1 :: false :: HNil
+    val repr2 = 1 :: "str" :: false :: HNil
+    val repr3 = false :: 1 :: "str" :: HNil
+
+    val xx = Generic[IceCream].to(IceCream.Sundae)
+    //    xx.fold(HNil)()
+  }
 }
+
