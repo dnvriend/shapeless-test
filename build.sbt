@@ -4,7 +4,7 @@ organization := "com.github.dnvriend"
 
 version := "1.0.0-SNAPSHOT"
 
-scalaVersion := "2.12.1"
+scalaVersion := "2.11.8"
 
 // functional and typelevel programming
 // https://github.com/scalaz/scalaz
@@ -15,9 +15,6 @@ libraryDependencies += "com.github.mpilquist" %% "simulacrum" % "0.10.0"
 libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.2"
 // https://github.com/typelevel/cats
 //libraryDependencies += "org.typelevel" %% "cats" % "0.9.0"
-
-// json
-//libraryDependencies += "com.typesafe.play" %% "play-json" % "2.6.0-M6"
 
 // compile-time DI (only used at compile-time so in "provided" scope)
 // https://github.com/adamw/macwire

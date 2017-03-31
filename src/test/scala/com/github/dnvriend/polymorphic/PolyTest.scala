@@ -14,13 +14,25 @@
  * limitations under the License.
  */
 
-package com.github.dnvriend.product.domainb
+package com.github.dnvriend.polymorphic
 
-import shapeless.Generic
+import com.github.dnvriend.TestSpec
+import shapeless.{ HList, HNil, ::, Poly, Poly1, poly }
+import PolyTest._
 
-sealed trait PaymentType
-object PaymentType {
-  implicit val gen = Generic[PaymentType]
+object PolyTest {
+  object MakeBigger extends Poly1 {
+    implicit def intCase = at[Int](_ * 100)
+    implicit def strCase = at[String](_.toUpperCase)
+  }
 }
-case object CreditCard extends PaymentType
-case object Cash extends PaymentType
+
+class PolyTest extends TestSpec {
+  it should "make 42 bigger" in {
+    MakeBigger(42) shouldBe 4200
+  }
+
+  it should "uppercase a String" in {
+    MakeBigger("foobar") shouldBe "FOOBAR"
+  }
+}
