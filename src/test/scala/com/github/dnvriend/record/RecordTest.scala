@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.github.dnvriend.product
+package com.github.dnvriend.record
 
 import com.github.dnvriend.TestSpec
+import com.github.dnvriend.record.RecordTest._
 import shapeless._
-import shapeless.syntax.singleton._
 import shapeless.record._
-import RecordTest._
+import shapeless.syntax.singleton._
 
 object RecordTest {
 
@@ -36,6 +36,11 @@ object RecordTest {
 class RecordTest extends TestSpec {
 
   it should "Create a record" in {
+
+    // A record definition
+    // Records are the generic representation used by LabelledGeneric
+    // LabelledGeneric tags each item in a product or coproduct
+    // with the corresponding field or type name from the concrete ADT
     val garfieldRecord = {
       ('name ->> "Garfield") ::
         ('color ->> "orange") ::

@@ -4,37 +4,35 @@ organization := "com.github.dnvriend"
 
 version := "1.0.0-SNAPSHOT"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.1"
 
-// functional and typelevel programming
-// https://github.com/scalaz/scalaz
-libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.2.10"
-// https://github.com/mpilquist/simulacrum
-libraryDependencies += "com.github.mpilquist" %% "simulacrum" % "0.10.0"
-// https://github.com/milessabin/shapeless
+scalaOrganization in ThisBuild := "org.typelevel"
+
+initialize ~= { _ =>
+  val ansi = System.getProperty("sbt.log.noformat", "false") != "true"
+  if (ansi) System.setProperty("scala.color", "true")
+}
+
+//scalacOptions in ThisBuild += "-Yliteral-types"
+
+initialCommands in console := """
+import shapeless._
+import scala.reflect.runtime.universe._
+import scala.concurrent.ExecutionContext.Implicits.global
+final case class Person(name: String, age: Int)
+final case class Cat(name: String, age: Int)
+val dennis = Person("Dennis", 42)
+val elsa = Cat("Elsa", 18)
+val tijger = Cat("Tijger", 13)
+val guys = List(elsa, tijger)
+"""
+
 libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.2"
-// https://github.com/typelevel/cats
-//libraryDependencies += "org.typelevel" %% "cats" % "0.9.0"
-
-// compile-time DI (only used at compile-time so in "provided" scope)
-// https://github.com/adamw/macwire
-libraryDependencies += "com.softwaremill.macwire" %% "macros" % "2.3.0" % "provided"
-
-// testing
-// https://github.com/typelevel/scalaz-scalatest
-libraryDependencies += "org.typelevel" %% "scalaz-scalatest" % "1.1.2" % Test
-// https://www.playframework.com/documentation/2.5.x/ScalaTestingWithScalaTest#Mockito  
-//libraryDependencies += "org.mockito" % "mockito-core" % "2.2.21" % Test
-// http://scalamock.org/
-// https://github.com/paulbutcher/ScalaMock
-libraryDependencies += "org.scalamock" %% "scalamock-scalatest-support" % "3.5.0" % Test
-// http://www.scalatest.org/
-// https://github.com/scalatest/scalatest
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1"
 
 // testing configuration
 fork in Test := true
-parallelExecution := false
+parallelExecution in Test := false
 
 licenses +=("Apache-2.0", url("http://opensource.org/licenses/apache2.0.php"))
 
@@ -55,15 +53,5 @@ headers := Map(
   "scala" -> Apache2_0("2017", "Dennis Vriend"),
   "conf" -> Apache2_0("2017", "Dennis Vriend", "#")
 )
-
-// 
-// compiler plugins
-//
-
-// https://github.com/scalamacros/paradise
-// http://docs.scala-lang.org/overviews/macros/paradise.html
-addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
-// https://github.com/non/kind-projector
-addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.3")
 
 enablePlugins(AutomateHeaderPlugin, SbtScalariform)

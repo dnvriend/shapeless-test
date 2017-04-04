@@ -25,6 +25,15 @@ import test._
 import LT._
 import LTEq._
 
+// In Scala we tend to prefer semantic types like IceCream, Employee
+// to encode products and coproducts and a convenient way to encode
+// these semantic types is using sealed traits and case classes because
+// of their specialized nature.
+
+// In wire/disk formats though, like writing or reading from disk
+// we don't really care about the specialized type rather focus on the
+// generic format and most cases that means only encoding the data.
+
 case class IceCream(name: String, numCherries: Int, inCone: Boolean)
 object IceCream {
   implicit val generic = Generic[IceCream]
