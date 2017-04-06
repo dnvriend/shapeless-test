@@ -204,13 +204,6 @@ scala> reify(implicitly[CsvEncoder[Person]])
 res2: reflect.runtime.universe.Expr[CsvEncoder[Person]] = Expr[CsvEncoder[Person]](Predef.implicitly[$read.CsvEncoder[$read.Person]]($read.genericEncoder(Generic.materialize, $read.hlistEncoder($read.strEncoder, $read.hlistEncoder($read.intEncoder, $read.hnilEncoder)))))
 ```
 
-## Dependently typed functions
-When using shapeless, we are trying to find a target type that depends on values in our code. This relationship is
-called dependent typing. Dependently typed functions provide a means of calculating one __type__ from another.
-Think of it as computations at the type-level. We can chain dependently typed functions to perform calculations
-involving multiple steps. For example, we should be able to use a Generic to calculate a Repr __type__ for a case class
-and use a Last to calculate the __type__ of the last element.
-
 ## Generalized Type Constraints
 The operators `<:<`, `<%<` and `=:=` are called 'generalized type constraints` They allow you, from within a
 type-parameterized class or trait, to further constrain one of its type parameters.
@@ -234,6 +227,21 @@ foo: Foo{type Out = Int} = $anon$1@96a75da
 scala> proof[foo.Out =:= Int]
 res2: Boolean = true
 ```
+
+## Dependent Types
+A dependent type is a type that depends on a value. Usually in programming languages, the type and the value world
+are totally separated and we use the type only to constraint and give information about the values. With dependent types
+there is no separation between the two worlds and we get new powerful features:
+
+- we have types that depend on values, which means that we can compute them in a similar way to values, this gives us more flexibility
+- we can define stronger constraints for the values
+
+
+When using shapeless, we are trying to find a target type that depends on values in our code. This relationship is
+called dependent typing. Dependently typed functions provide a means of calculating one __type__ from another.
+Think of it as computations at the type-level. We can chain dependently typed functions to perform calculations
+involving multiple steps. For example, we should be able to use a Generic to calculate a Repr __type__ for a case class
+and use a Last to calculate the __type__ of the last element.
 
 ## Singleton Types
 Singleton types are types that exclusively belong to one value with that type. For example:
@@ -288,7 +296,7 @@ The field 'number' is an Int in two worlds, at runtime, where it has the actual 
 the compiler uses the type to calculate which pieces of code work together and to search for implicits.
 
 ## Phantom Types
-Phantom types are types with no run-time sementics and are used by Shapeless to tag fields. For example
+Phantom types are types with no run-time sementics and are used eg. by Shapeless to tag fields. For example
 
 ```scala
 scala> val number = 42
@@ -324,8 +332,8 @@ What we've done is tag `number` with the Phantom Type `KeyTag["numCherries", Int
 __the name and type of the field__ which is useful when searching for entries in a Repr using implicit resolution.
 
 
-
 ## Tagged Types
+
 
 ## Projects
 - [Kittens -  a Scala library which provides instances of type classes from the Cats library for ADTs using shapeless - Miles Sabin](https://github.com/milessabin/kittens)
@@ -345,3 +353,5 @@ __the name and type of the field__ which is useful when searching for entries in
 - [Getting started with Shapeless - Julien Tournay](http://jto.github.io/articles/getting-started-with-shapeless/)
 - [Boilerplate free conversion from case classes to shapeless records via LabelledGeneric - Miles Sabin](https://gist.github.com/milessabin/9042788)
 - [Gist of Miles Sabin](https://gist.github.com/milessabin)
+- [Dependent Types - Type Level Programming in Scala step by step](http://gigiigig.github.io/tlp-step-by-step/dependent-types.html)
+- [Dependent Types - some tips, tricks and techniques](http://wheaties.github.io/Presentations/Scala-Dep-Types/dependent-types.html#/)

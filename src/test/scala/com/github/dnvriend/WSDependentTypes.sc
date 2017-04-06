@@ -32,7 +32,7 @@ l("foo" :: 42 :: HNil)
 the[Last[String :: Int :: HNil]]
 
 trait Encoder[A] {
-  type Out
+  type Out // dependent type
   def encode(value: A): Out
 }
 
@@ -83,3 +83,20 @@ val foo = new Foo { type Out = Int}
 
 // proof that these types are the same
 proof[foo.Out =:= Int]
+
+trait DepValue {
+  type V
+  val value: V
+}
+
+def magic(that: DepValue): that.V = that.value
+def mk[T](x: T) = new DepValue {
+  override type V = T
+  override val value: V = x
+}
+
+val depInt = mk(1)
+val depString = mk("two")
+
+val x: Int = magic(depInt)
+val y: String = magic(depString)
