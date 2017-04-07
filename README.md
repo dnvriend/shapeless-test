@@ -340,7 +340,8 @@ __the name and type of the field__ which is useful when searching for entries in
 - [export-hook -  infrastructure for type class providers and other orphan instances to implicit scope - Miles Sabin](https://github.com/milessabin/export-hook)
 
 ## Video
-- [Generic Derivation: The Hard Parts—Travis Brown](https://www.youtube.com/watch?v=80h3hZidSeE)
+- [The Type Astronaut's Guide to Shapeless — Dave Gurnell](https://www.youtube.com/watch?v=Zt6LjUnOcFQ)
+- [Generic Derivation: The Hard Parts — Travis Brown](https://www.youtube.com/watch?v=80h3hZidSeE)
 - [Kittens: Shapeless Typeclass Derivation for Cats — Miles Sabin](https://www.youtube.com/watch?v=fM7x2oWSM70)
 
 ## Resources
