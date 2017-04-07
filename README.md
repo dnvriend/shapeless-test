@@ -334,6 +334,19 @@ __the name and type of the field__ which is useful when searching for entries in
 
 ## Tagged Types
 
+## HList Type classes
+
+
+
+- Intersection
+An intersection is the set that contains all the elements of set A that also belongs to set B.
+Intersection is a type class supporting `HList` intersection. In case of duplicate types, this operation 
+is a multiset intersection. If type `T` appears n times in this `HList` and m < n times in `M`, the resulting `HList` 
+contains the first m elements of type `T` in this `HList`.
+
+Also available if `M` contains types absent in this `HList`.
+
+
 
 ## Projects
 - [Kittens -  a Scala library which provides instances of type classes from the Cats library for ADTs using shapeless - Miles Sabin](https://github.com/milessabin/kittens)
