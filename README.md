@@ -2,10 +2,7 @@
 A small study project on [shapeless](https://github.com/milessabin/shapeless), a generic programming library for Scala.
 
 ## TL;DR
-Shapeless gives us a way to use friendly semantic types - sealed traits for the coproducts and case classes for the products -
-and a generic representation when we need interoperability. To convert from/to these generic representation Shapeless provides
-the HList abstraction to convert products and coproducts (case classes, sealed traits and tuples) to the generic HList representation
-and provides primitives to manipulate the HList where appropriate.
+Shapeless gives us a way to use friendly semantic types - sealed traits for the coproducts and case classes for the products - and a generic representation when we need interoperability. To convert from/to these generic representation Shapeless provides the HList abstraction to convert products and coproducts (case classes, sealed traits and tuples) to the generic HList representation and provides primitives to manipulate the HList where appropriate.
 
 ## Introduction
 Shapeless provides automatic type class derivation by means of the Heterogeneous List or 'HList' abstraction.

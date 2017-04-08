@@ -13,7 +13,8 @@ initialize ~= { _ =>
   if (ansi) System.setProperty("scala.color", "true")
 }
 
-//scalacOptions in ThisBuild += "-Yliteral-types"
+scalacOptions in ThisBuild += "-Yliteral-types"
+//scalacOptions in ThisBuild += "-deprecation"
 
 initialCommands in console := """
 import shapeless._
