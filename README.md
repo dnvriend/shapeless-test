@@ -343,8 +343,6 @@ contains the first m elements of type `T` in this `HList`.
 
 Also available if `M` contains types absent in this `HList`.
 
-
-
 ## Projects
 - [Kittens -  a Scala library which provides instances of type classes from the Cats library for ADTs using shapeless - Miles Sabin](https://github.com/milessabin/kittens)
 - [export-hook -  infrastructure for type class providers and other orphan instances to implicit scope - Miles Sabin](https://github.com/milessabin/export-hook)
@@ -355,6 +353,7 @@ Also available if `M` contains types absent in this `HList`.
 - [Kittens: Shapeless Typeclass Derivation for Cats — Miles Sabin](https://www.youtube.com/watch?v=fM7x2oWSM70)
 
 ## Resources
+- [Example code to accompany shapeless-guide](https://github.com/underscoreio/shapeless-guide-code)
 - [Shapeless: not a tutorial - part 1](http://kanaka.io/blog/2015/11/09/shapeless-not-a-tutorial-part-1.html)
 - [Shapeless: not a tutorial - part 2](http://kanaka.io/blog/2015/11/10/shapeless-not-a-tutorial-part-2.html)
 - [Getting started with Shapeless - Mike Limansky](http://limansky.me/posts/2016-11-24-getting-started-with-shapeless.html)
@@ -366,3 +365,4 @@ Also available if `M` contains types absent in this `HList`.
 - [Gist of Miles Sabin](https://gist.github.com/milessabin)
 - [Dependent Types - Type Level Programming in Scala step by step](http://gigiigig.github.io/tlp-step-by-step/dependent-types.html)
 - [Dependent Types - some tips, tricks and techniques](http://wheaties.github.io/Presentations/Scala-Dep-Types/dependent-types.html#/)
+- [Henkan - A domain converter using shapeless](https://github.com/kailuowang/henkan)

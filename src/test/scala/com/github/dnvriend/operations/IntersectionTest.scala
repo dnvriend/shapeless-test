@@ -18,7 +18,7 @@ package com.github.dnvriend.operations
 
 import com.github.dnvriend.TestSpec
 import shapeless.labelled.{ FieldType, KeyTag }
-import shapeless.{ ::, HNil, HList, LabelledGeneric, Generic }
+import shapeless.{ ::, Default, Generic, HList, HNil, LabelledGeneric }
 import shapeless.ops.hlist.{ Align, Diff, Intersection, Union }
 import shapeless.syntax.SingletonOps
 import shapeless.syntax.singleton._
@@ -31,6 +31,13 @@ case class Person2(name: String, lastName: String, age: Int)
 object Person2 {
   val Empty = Person2("fn", "ln", 42)
 }
+
+case class Person3(lastName: String, age: Int, name: String)
+object Person3 {
+  val Empty = Person3("ln", 42, "fn")
+}
+
+case class Person4(fn: String = "fn", ln: String = "ln", age: Int = 42)
 
 class IntersectionTest extends TestSpec {
   "intersection" should "be defined as" in {
@@ -110,7 +117,7 @@ class IntersectionTest extends TestSpec {
     g3 shouldBe "hello" :: 1 :: true :: HNil
   }
 
-  it should "Align HList1 to HList2" in {
+  "align" should "Align HList1 to HList2" in {
     // Type class supporting permuting this `HList` into the same order as another `HList` with
     // the same element types.
     val g1: String :: Int :: Boolean :: HNil = "hello" :: 1 :: true :: HNil
@@ -118,7 +125,43 @@ class IntersectionTest extends TestSpec {
     g2 shouldBe true :: 1 :: "hello" :: HNil
   }
 
-  it should "labelled gen" in {
+  it should "use generic doAlign" in {
+    def doAlign[A, B, ARepr <: HList, BRepr <: HList](a: A, b: B)(implicit
+      aGen: LabelledGeneric.Aux[A, ARepr],
+      bGen: LabelledGeneric.Aux[B, BRepr],
+      align: Align[ARepr, BRepr]) = {
+      bGen.from(aGen.to(a))
+    }
+
+    doAlign(Person2.Empty, Person3.Empty) shouldBe Person3("ln", 42, "fn")
+  }
+
+  "Default" should "" in {
+    /**
+     * - Default Provides default values of case class-like types.
+     * - The `Out` type parameter is an HList type whose length is the number of fields of `T`.
+     * - Its elements correspond to the fields of `T`, in their original order.
+     * - The `apply` method returns an HList of type `Out`, with `None` elements corresponding to no default value available,
+     * and `Some(defaultValue)` to default value available for the corresponding fields.
+     */
+
+    val default = Default[Person]
+    default.apply() shouldBe None :: None :: HNil
+
+    val p4Default = Default[Person4]
+    p4Default.apply() shouldBe Some("fn") :: Some("ln") :: Some(42) :: HNil
+
+    val defaultRecord = Default.AsRecord[Person]
+    defaultRecord.apply() shouldBe HNil // there is no record to be made because no default values in case class
+
+    val p4Record = Default.AsRecord[Person4]
+    p4Record.apply() shouldBe "fn" :: "ln" :: 42 :: HNil // there are default values
+
+    val p4Options = Default.AsOptions[Person4]
+    p4Options.apply() shouldBe Some("fn") :: Some("ln") :: Some(42) :: HNil
+  }
+
+  "LabelledGen" should "labelled gen" in {
     val g1 = {
       'name ->> "fn ln" ::
         'age ->> 42 ::
