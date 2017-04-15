@@ -28,8 +28,14 @@ val tijger = Cat("Tijger", 13)
 val guys = List(elsa, tijger)
 """
 
+libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.2.10"
 libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.2"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1"
+
+val circeVersion = "0.7.0"
+libraryDependencies += "io.circe" %% "circe-core" % circeVersion
+libraryDependencies += "io.circe" %% "circe-generic" % circeVersion
+libraryDependencies += "io.circe" %% "circe-parser" % circeVersion
 
 // testing configuration
 fork in Test := true

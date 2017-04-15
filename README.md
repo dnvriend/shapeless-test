@@ -7,6 +7,9 @@ Shapeless gives us a way to use friendly semantic types - sealed traits for the 
 ## Introduction
 Shapeless provides automatic type class derivation by means of the Heterogeneous List or 'HList' abstraction.
 
+## Inductive Based Programming
+
+
 ## HList
 An HList is either the empty list `HNil` or a pair called `HList-cons` or just `cons` ::[H, T],
 and because you can write a parameterized type that has a binary arity using an infix notation,
