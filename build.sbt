@@ -4,7 +4,7 @@ organization := "com.github.dnvriend"
 
 version := "1.0.0-SNAPSHOT"
 
-scalaVersion := "2.12.1"
+scalaVersion := "2.12.2-bin-typelevel-4"
 
 scalaOrganization in ThisBuild := "org.typelevel"
 
@@ -13,26 +13,28 @@ initialize ~= { _ =>
   if (ansi) System.setProperty("scala.color", "true")
 }
 
-scalacOptions in ThisBuild += "-Yliteral-types"
+scalacOptions += "-Ypartial-unification"
+
+// https://github.com/typelevel/scala/blob/typelevel-readme/notes/typelevel-4.md#faster-compilation-of-inductive-implicits-pull5649-milessabin
+scalacOptions += "-Yinduction-heuristics"
+
+// https://github.com/typelevel/scala/blob/typelevel-readme/notes/typelevel-4.md#literal-types-pull5310-milesabin
+scalacOptions += "-Yliteral-types"
+scalacOptions += "-Xstrict-patmat-analysis"
+
+// https://github.com/typelevel/scala/blob/typelevel-readme/notes/typelevel-4.md#minimal-kind-polymorphism-pull5538-mandubian
+scalacOptions += "-Ykind-polymorphism"
+
+// https://github.com/typelevel/scala/blob/typelevel-readme/notes/typelevel-4.md#exhaustivity-of-extractors-guards-and-unsealed-traits-pull5617-sellout
+scalacOptions += "-Xstrict-patmat-analysis"
+scalacOptions += "-Ydelambdafy:inline"
 //scalacOptions in ThisBuild += "-deprecation"
 
-initialCommands in console := """
-import shapeless._
-import scala.reflect.runtime.universe._
-import scala.concurrent.ExecutionContext.Implicits.global
-final case class Person(name: String, age: Int)
-final case class Cat(name: String, age: Int)
-val dennis = Person("Dennis", 42)
-val elsa = Cat("Elsa", 18)
-val tijger = Cat("Tijger", 13)
-val guys = List(elsa, tijger)
-"""
-
-libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.2.10"
+libraryDependencies += "org.typelevel" %% "cats" % "0.9.0"
 libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.2"
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.3"
 
-val circeVersion = "0.7.0"
+val circeVersion = "0.8.0"
 libraryDependencies += "io.circe" %% "circe-core" % circeVersion
 libraryDependencies += "io.circe" %% "circe-generic" % circeVersion
 libraryDependencies += "io.circe" %% "circe-parser" % circeVersion
